@@ -1,3 +1,4 @@
 Test file.
 Second line added/
 Third line
+Third line
