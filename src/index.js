@@ -16,28 +16,30 @@ class App extends React.Component {
 
         this.state = { 
           videos: [],
-          selectedVideo: null 
+          selectedVideo: null,
+          searchTerm: 'Dhoni' 
         };
 
-        this.videoSearch('Dhoni');
-
+        this.videoSearch(this.state.searchTerm);
     }
 
     videoSearch(term) {
         YTSearch({key: API_KEY, term: term}, (videos) => {
             this.setState({ 
               videos: videos,
-              selectedVideo: videos[0] 
+              selectedVideo: videos[0],
+              searchTerm: term 
             });
         });
     }
 
     render() {
-   	  //const videoSearch = _.debounce((term) => { this.videoSearch(term)}, 300);
+      //const videoSearch = _.debounce((term) => { this.videoSearch(term)}, 300);
+      const searchTerm = this.state.searchTerm;
 
       return (
         <div>
-		  <SearchBar onSearchTermChange={_.debounce((term) => this.videoSearch(term), 300)}/>
+          <SearchBar searchTerm={this.state.searchTerm} onSearchTermChange={_.debounce((term) => this.videoSearch(term), 300)}/>
           <VideoDetail video={this.state.selectedVideo}/>
           <VideoList 
             onVideoSelect = {
